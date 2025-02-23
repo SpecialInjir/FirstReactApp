@@ -2,42 +2,40 @@ import React from 'react';
 import Header from './components/Header';
 import Image from './components/Image';
 import logo from './img/logo.png'
-// Создание компонентов, как функций
-// const Header = () =>{
-// return(<header>Шапка сайта</header>)
-// }
-// const App = () => {
-//     return (<div className='Name'>
-//         <Header />
-//         <h1>{helpText}</h1>
-//         <input 
-//         placeholder={helpText}
-//         onClick={inputClick}
-//         onMouseEnter={mouseOver}
-//         />
-//     <p >{helpText ==="net" ? "net": "da"}</p>
-//     </div>)
-// }
 
-// Создание компонентов, как классы, чаще всего это используется
+
 
 class App extends React.Component{  
- helpText ='Random Text'
+    constructor(props){
+        super(props)
+        this.state ={
+            helpText: "Help Text",
+            userData: ""
+        }
+
+        this.inputClick = this.inputClick.bind(this)
+    }
+
   render(){  return (<div className='Name'>
     <Header title="Шапка сайта" />
-    <h1>{this.helpText}</h1>
+    <h1>{this.state.helpText}</h1>
+    <h2>{this.state.userData}</h2>
     <input 
-    placeholder={this.helpText}
+    placeholder={this.state.helpText}
+    onChange ={event => this.setState({userData: event.target.value})}
     onClick={this.inputClick}
     onMouseEnter={this.mouseOver}
     />
-<p >{this.helpText ==="net" ? "net": "da"}</p>
+<p >{this.state.helpText ==="net" ? "net": "da"}</p>
 //вывод изображений по разному
 <Image image={logo}/>
 <img src={logo}></img>
 </div>)}
 
- inputClick = () => console.log("Clicked!")
+ inputClick() {
+    this.setState({helpText: "Changed"})
+    console.log("Clicked!")
+}
  mouseOver = () => console.log("Mouse moved!")
 }
 
