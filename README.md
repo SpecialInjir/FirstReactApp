@@ -1,70 +1,66 @@
-# Getting Started with Create React App Первое приложение на React
+### 1  Знакомство с JSX в React JS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Что такое JSX?
+JSX расшифровывается как JavaScript XML. JSX — это расширение для языка JavaScript. При помощи JSX вы можете описывать HTML код внутри JavaScript файлов без каких-либо проблем.
 
-In the project directory, you can run:
+Если бы не JSX, то описание каждого тега было бы долгим. Нужно было создать объект, добавить к нему атрибуты и возможные стили. Пример без JSX:
 
-### `npm start`
+ReactDOM.render(React.createElement('input', {
+	placeholder: 'Some text', 
+	value: 'some'
+}), document.getElementById("app");
+Такой же участок кода при помощи JSX выглядит намного проще и красивее:
+ ReactDOM.render(<input placeholder='Some text' value='some' />, document.getElementById("app");
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2 Создание компонентов и их использование, создание стилей и их подключение, пример использования изобраджений как компонентов и как ресурсов.
 
-### `npm test`
+_Можно создавать компоненты как функции, но чаще всего используют как классы._ 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Создание компонентов, как функций
 
-### `npm run build`
+```
+const Header = () =>{
+return(<header>Шапка сайта</header>)
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const App = () => {
+    return (<div className='Name'>
+        <Header />
+        <h1>{helpText}</h1>
+        <input 
+        placeholder={helpText}
+        onClick={inputClick}
+        onMouseEnter={mouseOver}
+        />
+    <p >{helpText ==="net" ? "net": "da"}</p>
+    </div>)
+}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### // Создание компонентов, как классы, чаще всего это используется
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+class App extends React.Component{  
+ helpText ='Random Text'
+  render(){  return (<div className='Name'>
+    <Header title="Шапка сайта" />
+    <h1>{this.helpText}</h1>
+    <input 
+    placeholder={this.helpText}
+    onClick={this.inputClick}
+    onMouseEnter={this.mouseOver}
+    />
+<p >{this.helpText ==="net" ? "net": "da"}</p>
+//вывод изображений по разному
+<Image image={logo}/>
+<img src={logo}></img>
+</div>)}
 
-### `npm run eject`
+ inputClick = () => console.log("Clicked!")
+ mouseOver = () => console.log("Mouse moved!")
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default App
+```
