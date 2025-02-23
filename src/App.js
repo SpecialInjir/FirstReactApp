@@ -16,6 +16,12 @@ class App extends React.Component{
         this.inputClick = this.inputClick.bind(this)
     }
 
+    componentDidUpdate(prevProp){
+        if(this.state.helpText !== "Help"){
+            console.log("Some")
+        }
+    }
+
   render(){  return (<div className='Name'>
     <Header title="Шапка сайта" />
     <h1>{this.state.helpText}</h1>
