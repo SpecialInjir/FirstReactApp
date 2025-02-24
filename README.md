@@ -1,180 +1,260 @@
-### 1 Знакомство с JSX в React JS
-
-Что такое JSX?
-JSX расшифровывается как JavaScript XML. JSX — это расширение для языка JavaScript. При помощи JSX вы можете описывать HTML код внутри JavaScript файлов без каких-либо проблем.
-
+### **1. Знакомство с JSX в React JS**
 Если бы не JSX, то описание каждого тега было бы долгим. Нужно было создать объект, добавить к нему атрибуты и возможные стили. Пример без JSX:
 
-ReactDOM.render(React.createElement('input', {
-placeholder: 'Some text',
-value: 'some'
-}), document.getElementById("app");
-Такой же участок кода при помощи JSX выглядит намного проще и красивее:
-ReactDOM.render(<input placeholder='Some text' value='some' />, document.getElementById("app");
+```javascript
+// Что такое JSX? JSX расшифровывается как JavaScript XML.
+// JSX — это расширение для языка JavaScript, которое позволяет описывать HTML-подобный код прямо в JavaScript файлах.
+// Это делает код более читаемым и удобным для работы.
 
-### 2 Создание компонентов и их использование, создание стилей и их подключение, пример использования изобраджений как компонентов и как ресурсов.
+// Пример без JSX:
+ReactDOM.render(
+    React.createElement('input', {
+         placeholder: 'Some text',
+          value: 'some' 
+          }), 
+    document.getElementById("app")
+);
+// Без JSX нужно создавать объекты React вручную с помощью метода `React.createElement`.
+// Этот метод принимает три аргумента: тип элемента (например, 'input'), его атрибуты (например, placeholder) и дочерние элементы.
 
-_Можно создавать компоненты как функции, но чаще всего используют как классы._
-
-### Создание компонентов, как функций
-
+// Такой же участок кода при помощи JSX выглядит намного проще и красивее:
+ReactDOM.render(
+    <input placeholder="Some text" value="some" />, 
+    document.getElementById("app")
+);
+// JSX позволяет писать HTML-подобный код прямо в JavaScript.
+// Внутри JSX можно использовать JavaScript-выражения, заключая их в фигурные скобки `{}`.
 ```
-const Header = () =>{
-return(<header>Шапка сайта</header>)
-}
+
+**Объяснение:**
+- JSX — это "синтаксический сахар" для React, который упрощает написание HTML-кода внутри JavaScript.
+- Без JSX код становится громоздким и сложным для чтения.
+- JSX автоматически преобразуется в вызовы `React.createElement`, поэтому под капотом всё работает так же, как и без JSX.
+
+---
+
+### **2. Создание компонентов и их использование**
+
+```javascript
+// Создание компонентов как функции
+const Header = () => {
+    return (<header>Шапка сайта</header>);
+};
+// Функциональный компонент — это простая функция, которая возвращает JSX.
+// Компоненты могут быть использованы как теги в других компонентах.
 
 const App = () => {
-    return (<div className='Name'>
-        <Header />
-        <h1>{helpText}</h1>
-        <input
-        placeholder={helpText}
-        onClick={inputClick}
-        onMouseEnter={mouseOver}
-        />
-    <p >{helpText ==="net" ? "net": "da"}</p>
-    </div>)
-}
-```
+    const helpText = "Random Text"; // Переменная для текста
+    const inputClick = () => console.log("Clicked!"); // Обработчик клика
+    const mouseOver = () => console.log("Mouse moved!"); // Обработчик наведения мыши
 
-### // Создание компонентов, как классы, чаще всего это используется
+    return (
+        <div className='Name'>
+            <Header /> {/* Используем компонент Header */}
+            <h1>{helpText}</h1> {/* Выводим значение переменной helpText */}
+            <input
+                placeholder={helpText} {/* Динамическое значение placeholder */}
+                onClick={inputClick} {/* Обработчик клика */}
+                onMouseEnter={mouseOver} {/* Обработчик наведения мыши */}
+            />
+            <p>{helpText === "net" ? "net" : "da"}</p> {/* Условный рендеринг */}
+            
+            {/* Вывод изображений по-разному */}
+            <Image image={logo} /> {/* Использование пользовательского компонента */}
+            <img src={logo} alt="Logo" /> {/* Использование стандартного тега img */}
+        </div>
+    );
+};
 
-```
-class App extends React.Component{
- helpText ='Random Text'
-  render(){  return (<div className='Name'>
-    <Header title="Шапка сайта" />
-    <h1>{this.helpText}</h1>
-    <input
-    placeholder={this.helpText}
-    onClick={this.inputClick}
-    onMouseEnter={this.mouseOver}
-    />
-<p >{this.helpText ==="net" ? "net": "da"}</p>
-//вывод изображений по разному
-<Image image={logo}/>
-<img src={logo}></img>
-</div>)}
+// Создание компонентов как классы (чаще используется)
+class App extends React.Component {
+    helpText = 'Random Text'; // Свойство класса
 
- inputClick = () => console.log("Clicked!")
- mouseOver = () => console.log("Mouse moved!")
-}
+    render() {
+        return (
+            <div className='Name'>
+                <Header title="Шапка сайта" /> {/* Передача props в компонент */}
+                <h1>{this.helpText}</h1> {/* Использование свойства класса */}
+                <input
+                    placeholder={this.helpText} {/* Динамическое значение placeholder */}
+                    onClick={this.inputClick} {/* Обработчик клика */}
+                    onMouseEnter={this.mouseOver} {/* Обработчик наведения мыши */}
+                />
+                <p>{this.helpText === "net" ? "net" : "da"}</p> {/* Условный рендеринг */}
 
-export default App
-```
-
-### 3 Использование состояний
-
-Благодаря состояниям мф можем динамически менять содержимое вашего сайта. За урок вы научитесь выводить и устанавливать значения внутрь состояний в React JS.
-
-````
- constructor(props){
-        super(props)
-    //состояния
-        this.state ={
-            helpText: "Help Text",
-            userData: ""
-        }
-
-   //для собственных функций нужно передавать и связывать состояние, для встроенных, как render() не нужно
-        this.inputClick = this.inputClick.bind(this)
+                {/* Вывод изображений по-разному */}
+                <Image image={logo} /> {/* Использование пользовательского компонента */}
+                <img src={logo} alt="Logo" /> {/* Использование стандартного тега img */}
+            </div>
+        );
     }
 
- render(){  return (<div className='Name'>
-    <Header title="Шапка сайта" />
-    <h1>{this.state.helpText}</h1>
-    <h2>{this.state.userData}</h2>
-    <input
-    placeholder={this.state.helpText}
-    //вывод инфы введенной сразу же
-    onChange ={event => this.setState({userData: event.target.value})}
-    onClick={this.inputClick}
-    onMouseEnter={this.mouseOver}
-    />
-</div>)}
-
- inputClick() {
-    //изменение состояния сразу при клике обновление
-    this.setState({helpText: "Changed"})
-    console.log("Clicked!")
+    inputClick = () => console.log("Clicked!"); // Метод класса
+    mouseOver = () => console.log("Mouse moved!"); // Метод класса
 }
- mouseOver = () => console.log("Mouse moved!")
 
-    ```
-````
-
-### 4 Использование веб хуков
-
-Когда вилим что то начинающеся с use - это веб-хук, некое действие, которое будет выполняться в автоматическом режиме
-
-Хуки позволяют выполнять действия связанные с пользователем или приложением. К примеру, ранее для создания состояния мы использовали конструктор в классе. Если вы прописываете функцию вместо класса, то в ней нельзя создать конструктор. Поэтому на замену этому подходу были предложены хуки, что выполняют схожие действия.
-
-componentDidUpdate Для классов
-
+export default App;
 ```
-    componentDidUpdate(prevProp){
-        if(this.state.helpText !== "Help"){
-            console.log("Some")
-        }
+
+**Объяснение:**
+- Компоненты — это основные строительные блоки в React. Они могут быть функциями или классами.
+- Функциональные компоненты проще и используются для статических или простых задач.
+- Классовые компоненты имеют больше возможностей, таких как состояние (`state`) и жизненные циклы.
+- `props` — это данные, которые передаются от родительского компонента к дочернему.
+- Изображения можно выводить как через пользовательские компоненты (`<Image />`), так и через стандартный тег `<img>`.
+
+---
+
+### **3. Использование состояний**
+
+```javascript
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // Состояния
+        this.state = {
+            helpText: "Help Text", // Начальное значение текста
+            userData: "" // Пустое значение для ввода пользователя
+        };
+
+        // Для собственных функций нужно связывать контекст (`this`), для встроенных, как render() не нужно
+        this.inputClick = this.inputClick.bind(this);
     }
+
+    render() {
+        return (
+            <div className='Name'>
+                <Header title="Шапка сайта" />
+                <h1>{this.state.helpText}</h1> {/* Вывод значения из состояния */}
+                <h2>{this.state.userData}</h2> {/* Вывод введенных данных */}
+                <input
+                    placeholder={this.state.helpText} {/* Динамическое значение placeholder */}
+                    onChange={event => this.setState({ userData: event.target.value })} {/* Обновление состояния */}
+                    onClick={this.inputClick} {/* Обработчик клика */}
+                    onMouseEnter={this.mouseOver} {/* Обработчик наведения мыши */}
+                />
+            </div>
+        );
+    }
+
+    inputClick() {
+        // Изменение состояния сразу при клике
+        this.setState({ helpText: "Changed" }); // Обновление состояния
+        console.log("Clicked!");
+    }
+
+    mouseOver = () => console.log("Mouse moved!"); // Метод класса
+}
 ```
 
-useEffect для функций
+**Объяснение:**
+- Состояние (`state`) — это объект, который хранит данные компонента.
+- Метод `setState` обновляет состояние и вызывает перерисовку компонента.
+- Для собственных методов нужно связывать контекст (`this`) через `bind`.
 
-```
-useEffect(()=>{
-    document.title =`Вы нажали ${click} раз`
-  })
+---
+
+### **4. Использование веб-хуков**
+
+```javascript
+// Хуки начинаются с префикса `use`. Они позволяют выполнять действия автоматически.
+// Например, ранее для создания состояния использовался конструктор в классе.
+// В функциональных компонентах нельзя использовать конструктор, поэтому появились хуки.
+
+// componentDidUpdate для классов
+componentDidUpdate(prevProps) {
+    if (this.state.helpText !== "Help") {
+        console.log("Some");
+    }
+}
+
+// useEffect для функций
+import React, { useState, useEffect } from 'react';
+
+function App() {
+    const [click, setClick] = useState(0); // Создание состояния
+
+    useEffect(() => {
+        document.title = `Вы нажали ${click} раз`; // Побочный эффект
+    });
+
+    return (
+        <button onClick={() => setClick(click + 1)}>
+            Нажми меня
+        </button>
+    );
+}
 ```
 
-### 5 Работа с массивом
+**Объяснение:**
+- Хуки — это функции, которые позволяют использовать возможности React (например, состояние) в функциональных компонентах.
+- `useState` создает состояние.
+- `useEffect` выполняет побочные эффекты (например, изменение заголовка страницы).
 
-```
+---
+
+### **5. Работа с массивом**
+
+```javascript
 import React from 'react';
 
-class Users extends React.Component{
+class Users extends React.Component {
     users = [
         {
             id: 1,
-            firstname:'Bob',
-            lastname:'Marley',
-            bio:'III leave from this town cause I was so sad',
-            age:30,
+            firstname: 'Bob',
+            lastname: 'Marley',
+            bio: 'I will leave from this town cause I was so sad',
+            age: 30,
             isHappy: true
         },
         {
             id: 2,
-            firstname:'Stev',
-            lastname:'Marley',
-            bio:'LOL lolo lololo',
-            age:22,
+            firstname: 'Stev',
+            lastname: 'Marley',
+            bio: 'LOL lolo lololo',
+            age: 22,
             isHappy: false
         },
-    ]
+    ];
 
-    render()
-    {
-        if(this.users.length>0)
-            return(<div>
-                {this.users.map((el)=> (<div className="user" key={el.id}>
-                    <h3> {el.firstname} {el.lastname}</h3>
-                    <p>{el.bio}</p>
-                    <b>{el.isHappy ? 'Happy :)' : 'Sad :('}</b>
-                </div>))}
-            </div>)
-        else
-        return(<div className="user"><h3>Нет пользователей</h3></div>)
-
+    render() {
+        if (this.users.length > 0) {
+            return (
+                <div>
+                    {this.users.map((el) => (
+                        <div className="user" key={el.id}>
+                            <h3>{el.firstname} {el.lastname}</h3> {/* Вывод имени и фамилии */}
+                            <p>{el.bio}</p> {/* Вывод биографии */}
+                            <b>{el.isHappy ? 'Happy :)' : 'Sad :('}</b> {/* Условный рендеринг */}
+                        </div>
+                    ))}
+                </div>
+            );
+        } else {
+            return (
+                <div className="user">
+                    <h3>Нет пользователей</h3> {/* Сообщение, если массив пуст */}
+                </div>
+            );
+        }
     }
 }
 
-export default Users
-
+export default Users;
 ```
 
-### 6 Работа с формой, добавление элементов
+**Объяснение:**
+- Массивы часто используются для отображения списков данных.
+- Метод `map` преобразует массив в список JSX-элементов.
+- Каждый элемент должен иметь уникальный `key`, чтобы React мог эффективно обновлять DOM.
+- Если массив пуст, можно отобразить сообщение "Нет пользователей".
 
-Давайте разберем этот код построчно с комментариями, чтобы понять, как работают формы в React и как взаимодействуют компоненты.
+---
+
+
+### 6 Работа с формой, добавление элементов
 
 ---
 
