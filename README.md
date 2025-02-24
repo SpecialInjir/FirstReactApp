@@ -1,4 +1,5 @@
 ### **1. Знакомство с JSX в React JS**
+
 Если бы не JSX, то описание каждого тега было бы долгим. Нужно было создать объект, добавить к нему атрибуты и возможные стили. Пример без JSX:
 
 ```javascript
@@ -8,25 +9,26 @@
 
 // Пример без JSX:
 ReactDOM.render(
-    React.createElement('input', {
-         placeholder: 'Some text',
-          value: 'some' 
-          }), 
-    document.getElementById("app")
+  React.createElement("input", {
+    placeholder: "Some text",
+    value: "some",
+  }),
+  document.getElementById("app")
 );
 // Без JSX нужно создавать объекты React вручную с помощью метода `React.createElement`.
 // Этот метод принимает три аргумента: тип элемента (например, 'input'), его атрибуты (например, placeholder) и дочерние элементы.
 
 // Такой же участок кода при помощи JSX выглядит намного проще и красивее:
 ReactDOM.render(
-    <input placeholder="Some text" value="some" />, 
-    document.getElementById("app")
+  <input placeholder="Some text" value="some" />,
+  document.getElementById("app")
 );
 // JSX позволяет писать HTML-подобный код прямо в JavaScript.
 // Внутри JSX можно использовать JavaScript-выражения, заключая их в фигурные скобки `{}`.
 ```
 
 **Объяснение:**
+
 - JSX — это "синтаксический сахар" для React, который упрощает написание HTML-кода внутри JavaScript.
 - Без JSX код становится громоздким и сложным для чтения.
 - JSX автоматически преобразуется в вызовы `React.createElement`, поэтому под капотом всё работает так же, как и без JSX.
@@ -58,7 +60,7 @@ const App = () => {
                 onMouseEnter={mouseOver} {/* Обработчик наведения мыши */}
             />
             <p>{helpText === "net" ? "net" : "da"}</p> {/* Условный рендеринг */}
-            
+
             {/* Вывод изображений по-разному */}
             <Image image={logo} /> {/* Использование пользовательского компонента */}
             <img src={logo} alt="Logo" /> {/* Использование стандартного тега img */}
@@ -97,6 +99,7 @@ export default App;
 ```
 
 **Объяснение:**
+
 - Компоненты — это основные строительные блоки в React. Они могут быть функциями или классами.
 - Функциональные компоненты проще и используются для статических или простых задач.
 - Классовые компоненты имеют больше возможностей, таких как состояние (`state`) и жизненные циклы.
@@ -149,6 +152,7 @@ class App extends React.Component {
 ```
 
 **Объяснение:**
+
 - Состояние (`state`) — это объект, который хранит данные компонента.
 - Метод `setState` обновляет состояние и вызывает перерисовку компонента.
 - Для собственных методов нужно связывать контекст (`this`) через `bind`.
@@ -188,6 +192,7 @@ function App() {
 ```
 
 **Объяснение:**
+
 - Хуки — это функции, которые позволяют использовать возможности React (например, состояние) в функциональных компонентах.
 - `useState` создает состояние.
 - `useEffect` выполняет побочные эффекты (например, изменение заголовка страницы).
@@ -197,62 +202,66 @@ function App() {
 ### **5. Работа с массивом**
 
 ```javascript
-import React from 'react';
+import React from "react";
 
 class Users extends React.Component {
-    users = [
-        {
-            id: 1,
-            firstname: 'Bob',
-            lastname: 'Marley',
-            bio: 'I will leave from this town cause I was so sad',
-            age: 30,
-            isHappy: true
-        },
-        {
-            id: 2,
-            firstname: 'Stev',
-            lastname: 'Marley',
-            bio: 'LOL lolo lololo',
-            age: 22,
-            isHappy: false
-        },
-    ];
+  users = [
+    {
+      id: 1,
+      firstname: "Bob",
+      lastname: "Marley",
+      bio: "I will leave from this town cause I was so sad",
+      age: 30,
+      isHappy: true,
+    },
+    {
+      id: 2,
+      firstname: "Stev",
+      lastname: "Marley",
+      bio: "LOL lolo lololo",
+      age: 22,
+      isHappy: false,
+    },
+  ];
 
-    render() {
-        if (this.users.length > 0) {
-            return (
-                <div>
-                    {this.users.map((el) => (
-                        <div className="user" key={el.id}>
-                            <h3>{el.firstname} {el.lastname}</h3> {/* Вывод имени и фамилии */}
-                            <p>{el.bio}</p> {/* Вывод биографии */}
-                            <b>{el.isHappy ? 'Happy :)' : 'Sad :('}</b> {/* Условный рендеринг */}
-                        </div>
-                    ))}
-                </div>
-            );
-        } else {
-            return (
-                <div className="user">
-                    <h3>Нет пользователей</h3> {/* Сообщение, если массив пуст */}
-                </div>
-            );
-        }
+  render() {
+    if (this.users.length > 0) {
+      return (
+        <div>
+          {this.users.map((el) => (
+            <div className="user" key={el.id}>
+              <h3>
+                {el.firstname} {el.lastname}
+              </h3>{" "}
+              {/* Вывод имени и фамилии */}
+              <p>{el.bio}</p> {/* Вывод биографии */}
+              <b>{el.isHappy ? "Happy :)" : "Sad :("}</b>{" "}
+              {/* Условный рендеринг */}
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="user">
+          <h3>Нет пользователей</h3> {/* Сообщение, если массив пуст */}
+        </div>
+      );
     }
+  }
 }
 
 export default Users;
 ```
 
 **Объяснение:**
+
 - Массивы часто используются для отображения списков данных.
 - Метод `map` преобразует массив в список JSX-элементов.
 - Каждый элемент должен иметь уникальный `key`, чтобы React мог эффективно обновлять DOM.
 - Если массив пуст, можно отобразить сообщение "Нет пользователей".
 
 ---
-
 
 ### 6 Работа с формой, добавление элементов
 
@@ -448,4 +457,324 @@ export default App;
 - **Передача данных между компонентами:** Данные передаются через `props` (например, функция `onAdd` передается из `App` в `AddUser`).
 - **Однонаправленный поток данных:** Данные движутся сверху вниз (от родителя к дочерним компонентам), а изменения передаются обратно через коллбэки.
 
-Таким образом, этот код демонстрирует базовые принципы работы с формами и управлением состоянием в React.
+### 7 Редактирование в форме и удаление элементов
+
+### **Объяснение кода и процессов удаления и редактирования пользователей**
+
+---
+
+### **1. Основной компонент `App`**
+
+```javascript
+import React from "react";
+import Header from "./components/Header";
+import Users from "./components/Users";
+import AddUser from "./components/AddUser";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [
+        {
+          id: 1,
+          firstname: "Bob",
+          lastname: "Marley",
+          bio: "III leave from this town cause I was so sad",
+          age: 30,
+          isHappy: true,
+        },
+        {
+          id: 2,
+          firstname: "Stev",
+          lastname: "Marley",
+          bio: "LOL lolo lololo",
+          age: 22,
+          isHappy: false,
+        },
+      ],
+    };
+    // Привязка методов к контексту
+    this.addUser = this.addUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
+    this.editUser = this.editUser.bind(this);
+  }
+
+  render() {
+    return (
+      <div className="Name">
+        <Header title="Шапка сайта" />
+        <main>
+          {/* Передаем список пользователей и обработчики в компонент Users */}
+          <Users
+            users={this.state.users}
+            onEdit={this.editUser}
+            onDelete={this.deleteUser}
+          />
+        </main>
+        <aside>
+          {/* Передаем обработчик добавления в компонент AddUser */}
+          <AddUser onAdd={this.addUser} />
+        </aside>
+      </div>
+    );
+  }
+
+  // Удаление пользователя
+  deleteUser(id) {
+    this.setState({
+      users: this.state.users.filter((el) => el.id !== id),
+    });
+  }
+
+  // Редактирование пользователя
+  editUser(user) {
+    let allUsers = this.state.users;
+    allUsers[user.id - 1] = user; // Обновляем пользователя по индексу
+    this.setState(
+      {
+        users: [],
+      },
+      () => {
+        this.setState({
+          users: [...allUsers],
+        });
+      }
+    );
+  }
+
+  // Добавление нового пользователя
+  addUser(user) {
+    const id = this.state.users.length + 1;
+    this.setState({
+      users: [...this.state.users, { id, ...user }],
+    });
+  }
+}
+
+export default App;
+```
+
+**Объяснение:**
+
+- **Состояние (`state`):** В состоянии хранится массив пользователей.
+- **Методы:**
+  - `deleteUser(id)` удаляет пользователя из массива с помощью метода `.filter()`.
+  - `editUser(user)` обновляет данные пользователя в массиве.
+  - `addUser(user)` добавляет нового пользователя с уникальным `id`.
+- **Передача данных:** Методы `onDelete`, `onEdit` и `onAdd` передаются в дочерние компоненты через `props`.
+
+---
+
+### **2. Компонент `Users`**
+
+```javascript
+import React from "react";
+import User from "./User";
+
+class Users extends React.Component {
+  render() {
+    if (this.props.users.length > 0) {
+      return (
+        <div>
+          {/* Рендерим список пользователей */}
+          {this.props.users.map((el) => (
+            <User
+              key={el.id} // Уникальный ключ для каждого пользователя
+              user={el} // Передаем данные пользователя
+              onEdit={this.props.onEdit} // Передаем обработчик редактирования
+              onDelete={this.props.onDelete} // Передаем обработчик удаления
+            />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <div className="user">
+          <h3>Нет пользователей</h3>
+        </div>
+      );
+    }
+  }
+}
+
+export default Users;
+```
+
+**Объяснение:**
+
+- Этот компонент отвечает за отображение списка пользователей.
+- Если массив пользователей пуст, выводится сообщение "Нет пользователей".
+- Для каждого пользователя вызывается компонент `User`, которому передаются данные (`user`) и обработчики (`onEdit`, `onDelete`).
+
+---
+
+### **3. Компонент `User`**
+
+```javascript
+import React from "react";
+import { IoCloseCircleSharp, IoHammerSharp } from "react-icons/io5";
+import AddUser from "./AddUser";
+
+class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editForm: false, // Состояние для отображения формы редактирования
+    };
+  }
+
+  render() {
+    const { user, onDelete } = this.props;
+
+    return (
+      <div className="user">
+        {/* Иконка удаления */}
+        <IoCloseCircleSharp
+          onClick={() => onDelete(user.id)} // Вызываем обработчик удаления
+          className="delete-icon"
+        />
+
+        {/* Иконка редактирования */}
+        <IoHammerSharp
+          onClick={() =>
+            this.setState({
+              editForm: !this.state.editForm, // Переключаем форму редактирования
+            })
+          }
+          className="edit-icon"
+        />
+
+        {/* Информация о пользователе */}
+        <h3>
+          {user.firstname} {user.lastname}
+        </h3>
+        <p>{user.bio}</p>
+        <b>{user.isHappy ? "Happy :)" : "Sad :("}</b>
+
+        {/* Форма редактирования */}
+        {this.state.editForm && (
+          <AddUser
+            user={user} // Передаем данные пользователя
+            onAdd={this.props.onEdit} // Передаем обработчик редактирования
+          />
+        )}
+      </div>
+    );
+  }
+}
+
+export default User;
+```
+
+**Объяснение:**
+
+- Этот компонент отображает информацию о пользователе.
+- При нажатии на иконку удаления (`IoCloseCircleSharp`) вызывается обработчик `onDelete`.
+- При нажатии на иконку редактирования (`IoHammerSharp`) открывается форма редактирования (`AddUser`).
+- Форма редактирования передает обновленные данные обратно через `onAdd`.
+
+---
+
+### **4. Компонент `AddUser`**
+
+```javascript
+import React from "react";
+
+class AddUser extends React.Component {
+  userAdd = {};
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: "",
+      lastname: "",
+      bio: "",
+      age: 1,
+      isHappy: false,
+    };
+  }
+
+  render() {
+    return (
+      <form ref={(el) => (this.myForm = el)}>
+        {" "}
+        {/* Ссылка на форму */}
+        <input
+          placeholder="Имя"
+          onChange={(e) => this.setState({ firstname: e.target.value })}
+        />
+        <input
+          placeholder="Фамилия"
+          onChange={(e) => this.setState({ lastname: e.target.value })}
+        />
+        <textarea
+          placeholder="Биография"
+          onChange={(e) => this.setState({ bio: e.target.value })}
+        ></textarea>
+        <input
+          placeholder="Возраст"
+          onChange={(e) => this.setState({ age: e.target.value })}
+        />
+        <label htmlFor="isHappy">Счастлив?</label>
+        <input
+          type="checkbox"
+          id="isHappy"
+          onChange={(e) => this.setState({ isHappy: e.target.checked })}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            this.myForm.reset(); // Очищаем форму
+            this.userAdd = {
+              firstname: this.state.firstname,
+              lastname: this.state.lastname,
+              bio: this.state.bio,
+              age: this.state.age,
+              isHappy: this.state.isHappy,
+            };
+            if (this.props.user) {
+              this.userAdd.id = this.props.user.id; // Сохраняем ID при редактировании
+            }
+            this.props.onAdd(this.userAdd); // Передаем данные в родительский компонент
+          }}
+        >
+          Добавить
+        </button>
+      </form>
+    );
+  }
+}
+
+export default AddUser;
+```
+
+**Объяснение:**
+
+- Этот компонент используется для добавления или редактирования пользователей.
+- При нажатии на кнопку "Добавить":
+  - Собираются данные из формы.
+  - Если передан `props.user`, значит это редактирование, и сохраняется `id`.
+  - Данные передаются в родительский компонент через `onAdd`.
+- После отправки данных форма очищается с помощью `this.myForm.reset()`.
+
+---
+
+### **Как это работает вместе?**
+
+1. **Удаление пользователя:**
+
+   - Пользователь нажимает на иконку удаления (`IoCloseCircleSharp`).
+   - Вызывается метод `onDelete` из `App`, который удаляет пользователя из массива с помощью `.filter()`.
+
+2. **Редактирование пользователя:**
+
+   - Пользователь нажимает на иконку редактирования (`IoHammerSharp`).
+   - Открывается форма редактирования (`AddUser`), куда передаются текущие данные пользователя.
+   - После изменения данных они передаются в метод `onEdit` из `App`, который обновляет массив пользователей.
+
+3. **Добавление пользователя:**
+   - Пользователь заполняет форму в компоненте `AddUser`.
+   - После нажатия на кнопку "Добавить" данные передаются в метод `onAdd` из `App`, который добавляет нового пользователя в массив.
+
+---
