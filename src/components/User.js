@@ -33,9 +33,10 @@ class User extends React.Component {
 
                 {/* Информация о пользователе */}
                 <h3>
-                    {user.firstname} {user.lastname}
+                    {user.first_name} {user.last_name}
                 </h3>
-                <p>{user.bio}</p>
+                <img src={user.avatar}></img>
+                <p>{user.email}</p>
                 <b>{user.isHappy ? 'Happy :)' : 'Sad :('}</b>
 
                 {/* Условный рендеринг формы редактирования */}
