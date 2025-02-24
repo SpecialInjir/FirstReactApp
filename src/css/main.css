@@ -57,7 +57,7 @@ main .delete-icon:hover{
     opacity: 0.5;
 }
 
-aside form input:not([type="checkbox"]), aside form textarea, aside form button{
+ form input:not([type="checkbox"]),  form textarea,  form button{
     width: 90%;
     padding: 15px 5%;
     font-family: 'Montserrat', sans-serif;
@@ -71,17 +71,33 @@ aside form input:not([type="checkbox"]), aside form textarea, aside form button{
 
 }
 
-aside form input[type="checkbox"]{
+ form input[type="checkbox"]{
 
     margin: 10px;
 }
 
-aside form button{
+ form button{
     width: 100%;
     cursor:pointer;
     transition: transform 500ms ease;
 }
 
-aside form button:hover{
+ form button:hover{
    transform: scale(1.1);
 }
+
+.user form {
+    margin-top: 20px;
+}
+
+
+.user form input 
+.user form textarea 
+.user form button 
+{
+    background: #574a4a
+}
+
+.user form button:hover{
+    transform: scale(1.01);
+ }
